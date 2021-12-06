@@ -1,5 +1,7 @@
 package com.tutorials.tutorialsapis.model;
 
+import lombok.Getter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tutorials")
+@Table(name = "tutorials")
+@Getter
 public class Tutorial {
 
     @Id
