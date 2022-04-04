@@ -1,4 +1,4 @@
-package com.tutorials.bbs;
+package com.bbs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
