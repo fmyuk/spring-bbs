@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class BoardController {
     }
 
     @PostMapping("/board")
-    public ResponseEntity<Board> createBoard(@RequestBody String title) {
+    public ResponseEntity<Board> createBoard(@RequestParam String title) {
         try {
             Board board = boardRepository.save(new Board(title));
             return new ResponseEntity<>(board, HttpStatus.CREATED);
