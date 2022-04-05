@@ -1,13 +1,13 @@
-package com.tutorials.tutorialsapis;
+package com.bbs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TutorialsApisApplication {
+public class BbsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TutorialsApisApplication.class, args);
+		SpringApplication.run(BbsApplication.class, args);
 	}
 
 }

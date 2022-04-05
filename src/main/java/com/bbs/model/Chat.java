@@ -1,6 +1,7 @@
-package com.tutorials.tutorialsapis.model;
+package com.bbs.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -11,31 +12,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tutorials")
+@Table(name = "Chat")
 @Getter
 @Setter
-public class Tutorial {
+@NoArgsConstructor
+public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "boardId")
+    private long boardId;
+
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "comment")
+    private String comment;
 
-    @Column(name = "published")
-    private boolean published;
-
-    public Tutorial() {
-
-    }
-
-    public Tutorial(String title, String description, boolean published) {
+    public Chat(long boardId, String title, String comment) {
+        this.boardId = boardId;
         this.title = title;
-        this.description = description;
-        this.published = published;
+        this.comment = comment;
     }
 }
