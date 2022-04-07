@@ -3,5 +3,8 @@ package com.bbs.repository;
 import com.bbs.model.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ChatRepository extends JpaRepository<Chat, Long> {
+    List<Chat> findByBoard(long board);
 }

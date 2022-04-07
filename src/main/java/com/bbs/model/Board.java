@@ -1,6 +1,7 @@
 package com.bbs.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 @Table(name = "board")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Board {
 
     @Id

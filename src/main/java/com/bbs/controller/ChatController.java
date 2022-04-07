@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -25,16 +26,16 @@ public class ChatController {
     private final ChatRepository chatRepository;
 
     @GetMapping("/chat/{id}")
-    public ResponseEntity<Chat> getChatById(@PathVariable("id") long id) {
-        Optional<Chat> chatData = chatRepository.findById(id);
+    public ResponseEntity<List<Chat>> getChatByBoard(@PathVariable("board") long bord) {
+        List<Chat> chatList = chatRepository.findByBoard(bord);
 
-        return chatData.map(chat -> new ResponseEntity<>(chat, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return new ResponseEntity<>(chatList, HttpStatus.OK);
     }
 
     @PostMapping("/chat")
-    public ResponseEntity<Chat> createChat(@RequestParam long boardId, @RequestParam String title, @RequestParam String comment) {
+    public ResponseEntity<Chat> createChat(@RequestParam long board, @RequestParam String title, @RequestParam String comment) {
         try {
-            Chat chat = chatRepository.save(new Chat(boardId, title, comment));
+            Chat chat = chatRepository.save(new Chat(board, title, comment));
             return new ResponseEntity<>(chat, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

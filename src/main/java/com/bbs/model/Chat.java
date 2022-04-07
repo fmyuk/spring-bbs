@@ -22,8 +22,8 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "boardId")
-    private long boardId;
+    @Column(name = "board")
+    private long board;
 
     @Column(name = "title")
     private String title;
@@ -31,8 +31,8 @@ public class Chat {
     @Column(name = "comment")
     private String comment;
 
-    public Chat(long boardId, String title, String comment) {
-        this.boardId = boardId;
+    public Chat(long board, String title, String comment) {
+        this.board = board;
         this.title = title;
         this.comment = comment;
     }
