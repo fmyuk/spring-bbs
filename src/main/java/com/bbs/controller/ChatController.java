@@ -5,6 +5,7 @@ import com.bbs.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +27,13 @@ public class ChatController {
 
     private final ChatRepository chatRepository;
 
-    @GetMapping("/chat/{id}")
-    public ResponseEntity<List<Chat>> getChatByBoard(@PathVariable("board") long bord) {
-        List<Chat> chatList = chatRepository.findByBoard(bord);
+    @GetMapping("/chat/{board}")
+    public ResponseEntity<List<Chat>> getChatByBoard(@PathVariable("board") long board, @RequestParam String title) {
+        List<Chat> chatList = new ArrayList<>();
+        chatList = chatRepository.findByBoard(board);
+        if (CollectionUtils.isEmpty(chatList)) {
+            chatList.add(new Chat(board, title, ""));
+        }
 
         return new ResponseEntity<>(chatList, HttpStatus.OK);
     }
