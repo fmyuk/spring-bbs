@@ -58,23 +58,25 @@ public class BoardController {
     }
 
     @PutMapping("/board/{id}")
-    public ResponseEntity<Board> updateBoard(@PathVariable("id") long id, String title) {
+    public ResponseEntity<List<Board>> updateBoard(@PathVariable("id") long id, String title) {
         Optional<Board> bordData = boardRepository.findById(id);
 
         if (!StringUtils.isEmpty(title)) {
             Board board = bordData.get();
             board.setTitle(title);
-            return new ResponseEntity<>(boardRepository.save(board), HttpStatus.OK);
+            boardRepository.save(board);
+            return new ResponseEntity<>(boardRepository.findAll(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/board/{id}")
-    public ResponseEntity<HttpStatus> deleteBoard(@PathVariable("id") long id) {
+    public ResponseEntity<List<Board>> deleteBoard(@PathVariable("id") long id) {
         try {
             boardRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            List<Board> boardList = boardRepository.findAll();
+            return new ResponseEntity<>(boardList, HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
