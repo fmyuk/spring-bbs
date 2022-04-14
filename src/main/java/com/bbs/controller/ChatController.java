@@ -49,24 +49,26 @@ public class ChatController {
     }
 
     @PutMapping("/chat/{id}")
-    public ResponseEntity<Chat> updateChat(@PathVariable("id") long id, @RequestParam String comment) {
+    public ResponseEntity<List<Chat>> updateChat(@PathVariable("id") long id, @RequestParam long board, @RequestParam String comment) {
         Optional<Chat> chatData = chatRepository.findById(id);
 
         if (!StringUtils.isEmpty(comment)) {
             Chat chat = chatData.get();
             chat.setComment(comment);
+            chatRepository.save(chat);
 
-            return new ResponseEntity<>(chatRepository.save(chat), HttpStatus.OK);
+
+            return new ResponseEntity<>(chatRepository.findByBoard(board), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/chat/{id}")
-    public ResponseEntity<HttpStatus> deleteChat(@PathVariable("id") long id) {
+    public ResponseEntity<List<Chat>> deleteChat(@PathVariable("id") long id, long board) {
         try {
             chatRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(chatRepository.findByBoard(board), HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
